@@ -1,0 +1,8 @@
+﻿<Window x:Class="EvilHangman.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Evil Hangman" Height="600" Width="800">
+    <Grid>
+        <Canvas x:Name="cvsGameWindow" HorizontalAlignment="Left" Height="549" Margin="10,10,0,0" VerticalAlignment="Top" Width="772"/>
+    </Grid>
+</Window>
