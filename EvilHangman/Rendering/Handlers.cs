@@ -8,6 +8,15 @@ using System.Windows.Controls;
 
 namespace EvilHangman.Rendering
 {
+    public class LetterPos
+    {
+        public string letter { get; set; }
+        public int position { get; set; }
+        public LetterPos()
+        {
+            letter = "";
+        }
+    }
     public static class Handlers
     {
         public static void NewGameButtonClick(object sender, EventArgs e)
@@ -88,6 +97,63 @@ namespace EvilHangman.Rendering
                 }
                 RenderBodyParts.UpdateGuessedLetters();
                 RenderBodyParts.UpdateLetters();
+
+                List<LetterPos> lpList = new List<LetterPos>();
+                for (int i = 0; i < GameResources.CurrentWordState.Length; ++i)
+                {
+                    if (GameResources.CurrentWordState[i] == "_") continue;
+
+                    LetterPos lp = new LetterPos();
+                    lp.letter = GameResources.CurrentWordState[i];
+                    lp.position = i;
+                    lpList.Add(lp);
+
+                }
+
+                List<string> newWordList = new List<string>();
+                foreach (string word in GameResources.PossibleWords)
+                {
+                    string modWord = word;
+                    bool isValid = true;
+                    int offset = 0;
+                    foreach (var lp in lpList)
+                    {
+                        if (word[lp.position].ToString() != lp.letter)
+                        {
+                            isValid = false;
+                            break;
+                        }
+                        else
+                        {
+                            modWord = modWord.Remove(lp.position - offset, 1);
+                            ++offset;
+                        }
+                    }
+                    if (isValid)
+                    {
+                        bool isSuperValid = true;
+                        foreach (var let in GameResources.GuessedLetters)
+                        {
+                            if (modWord.Contains(let))
+                            {
+                                isSuperValid = false;
+                                break;
+                            }
+                        }
+                        if (isSuperValid)
+                        {
+                            newWordList.Add(word);
+                        }
+                    }
+                }
+                GameResources.PossibleWords = newWordList;
+                if (GameResources.PossibleWords.Count > 1)
+                {
+                    Random random = new Random();
+                    int wordNumber = random.Next(0, GameResources.PossibleWords.Count - 1);
+                    GameResources.CurrentWord = GameResources.PossibleWords[wordNumber];
+                }
+
             }
             if (GameResources.SolvedLetters == GameResources.WordLength)
             {
