@@ -72,11 +72,6 @@ namespace EvilHangman.Rendering
                 }
                 mdownref = null;
             };
-
-            for (int i = 0; i < GameResources.WordLength; ++i)
-            {
-
-            }
         }
     }
 }
