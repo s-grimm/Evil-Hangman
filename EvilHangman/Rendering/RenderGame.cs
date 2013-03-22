@@ -62,9 +62,13 @@ namespace EvilHangman.Rendering
             {
                 if (mdownref != null && s == mdownref)
                 {
+                    
                     Label lb = s as Label;
-                    lb.Foreground = GameResources.BlackBrush;
-                    Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) - 15);
+                    if (lb.Foreground != GameResources.BlackBrush)
+                    {
+                        lb.Foreground = GameResources.BlackBrush;
+                        Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) - 15);
+                    }
                 }
                 mdownref = null;
             };

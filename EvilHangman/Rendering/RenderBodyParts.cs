@@ -9,6 +9,7 @@ namespace EvilHangman.Rendering
 {
     public static class RenderBodyParts
     {
+        private static object mdownref = null;
         public static void RenderScene()
         {
             //GameResources.GuessesLeft
@@ -57,6 +58,12 @@ namespace EvilHangman.Rendering
         public static void RenderGameOver()
         {
             GameResources.GameCanvas.Children.Clear();
+
+            for (int i = 0; i < GameResources.CurrentWord.Length; ++i)
+            {
+                GameResources.CurrentWordState[i] = GameResources.CurrentWord[i].ToString();
+            }
+
             UpdateLetters();
             UpdateGuessedLetters();
 
@@ -69,7 +76,33 @@ namespace EvilHangman.Rendering
             Canvas.SetTop(btn, (GameResources.GameDimensions.Height / 2));
             Canvas.SetLeft(btn, (GameResources.GameDimensions.Width / 2) );
 
-           
+            Label retry = new Label();
+            retry.Content = "New Game?";
+            retry.FontFamily = new FontFamily("Rosewood Std");
+            retry.FontSize = 48.0;
+            retry.Width = 300;
+            retry.Height = 100;
+            Canvas.SetTop(retry, (GameResources.GameDimensions.Height / 2) + 125);
+            Canvas.SetLeft(retry, (GameResources.GameDimensions.Width / 2));
+            retry.MouseDown += (s, e) =>
+            {
+                Label lb = s as Label;
+                lb.Foreground = GameResources.RedBrush;
+                Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) + 15);
+                mdownref = s;
+            };
+            retry.MouseUp += Handlers.RetryGameClick;
+            retry.MouseLeave += (s, e) =>
+            {
+                if (mdownref != null && s == mdownref)
+                {
+                    Label lb = s as Label;
+                    lb.Foreground = GameResources.BlackBrush;
+                    Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) - 15);
+                }
+                mdownref = null;
+            };
+            GameResources.GameCanvas.Children.Add(retry);
             GameResources.GameCanvas.Children.Add(btn);
         }
 
@@ -87,7 +120,33 @@ namespace EvilHangman.Rendering
             btn.Height = 100;
             Canvas.SetTop(btn, (GameResources.GameDimensions.Height / 2));
             Canvas.SetLeft(btn, (GameResources.GameDimensions.Width / 2));
-
+            Label retry = new Label();
+            retry.Content = "New Game?";
+            retry.FontFamily = new FontFamily("Rosewood Std");
+            retry.FontSize = 48.0;
+            retry.Width = 300;
+            retry.Height = 100;
+            Canvas.SetTop(retry, (GameResources.GameDimensions.Height / 2) + 125);
+            Canvas.SetLeft(retry, (GameResources.GameDimensions.Width / 2));
+            retry.MouseDown += (s, e) =>
+            {
+                Label lb = s as Label;
+                lb.Foreground = GameResources.RedBrush;
+                Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) + 15);
+                mdownref = s;
+            };
+            retry.MouseUp += Handlers.RetryGameClick;
+            retry.MouseLeave += (s, e) =>
+            {
+                if (mdownref != null && s == mdownref)
+                {
+                    Label lb = s as Label;
+                    lb.Foreground = GameResources.BlackBrush;
+                    Canvas.SetLeft(s as Label, Canvas.GetLeft(s as Label) - 15);
+                }
+                mdownref = null;
+            };
+            GameResources.GameCanvas.Children.Add(retry);
 
             GameResources.GameCanvas.Children.Add(btn);
         }
