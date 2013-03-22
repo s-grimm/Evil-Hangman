@@ -56,6 +56,21 @@ namespace EvilHangman.Rendering
 
         public static void RenderGameOver()
         {
+            GameResources.GameCanvas.Children.Clear();
+            UpdateLetters();
+            UpdateGuessedLetters();
+
+            Label btn = new Label();
+            btn.Content = "Game Over";
+            btn.FontFamily = new FontFamily("Rosewood Std");
+            btn.FontSize = 60.0;
+            btn.Width = 300;
+            btn.Height = 100;
+            Canvas.SetTop(btn, (GameResources.GameDimensions.Height / 2));
+            Canvas.SetLeft(btn, (GameResources.GameDimensions.Width / 2) );
+
+           
+            GameResources.GameCanvas.Children.Add(btn);
         }
 
         public static List<UIElement> LetterList = new List<UIElement>(); 
