@@ -30,7 +30,7 @@ namespace EvilHangman.Rendering
                 {
                     GameResources.CurrentWordState[i] = "_";
                 }
-
+                GameResources.PossibleWords = word;
                 RenderGame.RenderStartGame();
                 RenderBodyParts.UpdateLetters();
             }
@@ -67,7 +67,7 @@ namespace EvilHangman.Rendering
                         if (x == cWord.Length - 1) break;
                         else
                         {
-                            offset = x;
+                            offset = x+1;
                             cWord = cWord.Substring(x + 1);
                         }
                     }
@@ -92,6 +92,7 @@ namespace EvilHangman.Rendering
             if (GameResources.SolvedLetters == GameResources.WordLength)
             {
                 //render winning scene!
+                RenderBodyParts.RenderGameOverWin();
             }
             else
             {

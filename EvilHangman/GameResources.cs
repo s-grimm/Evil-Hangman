@@ -12,6 +12,8 @@ namespace EvilHangman
         public static Canvas GameCanvas { get; set; }
         public static Dimensions GameDimensions { get; set; }
 
+        public static List<string> PossibleWords { get; set; }
+
         public enum Difficulty { Easy = 5, Medium = 6, Hard = 7 };
         public enum State { Menu = 1, Start = 2, Head = 3, Body = 4, LeftLeg = 5, RightLeg = 6, LeftArm = 7, RightArm = 8, GameOver = 9, GameWon = 10 };
 
