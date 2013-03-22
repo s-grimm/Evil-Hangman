@@ -21,7 +21,7 @@ namespace EvilHangman
         public static string CurrentWord {get;set;}
         public static int WordLength { get; set; }
         public static string[] CurrentWordState { get; set; }
-
+        public static int SolvedLetters { get; set; }
 
         public static List<char> GuessedLetters { get; set; }
 

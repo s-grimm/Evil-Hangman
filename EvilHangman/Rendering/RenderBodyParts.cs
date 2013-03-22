@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -54,6 +56,31 @@ namespace EvilHangman.Rendering
 
         public static void RenderGameOver()
         {
+        }
+
+        public static List<UIElement> LetterList = new List<UIElement>(); 
+
+        public static void UpdateLetters()
+        {
+            foreach(UIElement uel in LetterList)
+            {
+                if (GameResources.GameCanvas.Children.Contains(uel))
+                    GameResources.GameCanvas.Children.Remove(uel);
+            }
+            int offset = 25;
+            foreach (var letter in GameResources.CurrentWordState)
+            {
+                Label btn = new Label();
+                btn.Content = letter;
+                btn.FontFamily = new FontFamily("Rosewood Std");
+                btn.FontSize = 60.0;
+                btn.Width = 100;
+                btn.Height = 100;
+                Canvas.SetTop(btn, (GameResources.GameDimensions.Height * .25));
+                Canvas.SetLeft(btn, (GameResources.GameDimensions.Width * 0.25) +offset);
+                offset += 50;
+                GameResources.GameCanvas.Children.Add(btn);
+            }
         }
     }
 }

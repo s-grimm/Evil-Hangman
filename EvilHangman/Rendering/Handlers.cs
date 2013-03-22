@@ -25,12 +25,14 @@ namespace EvilHangman.Rendering
                 GameResources.GuessesLeft = 6;
                 GameResources.WordLength = length;
                 GameResources.CurrentWordState = new string[length];
+                GameResources.SolvedLetters = 0;
                 for (int i = 0; i < length; ++i)
                 {
                     GameResources.CurrentWordState[i] = "_";
                 }
 
                 RenderGame.RenderStartGame();
+                RenderBodyParts.UpdateLetters();
             }
         }
 
@@ -54,6 +56,20 @@ namespace EvilHangman.Rendering
             if (GameResources.CurrentWord.ToLower().Contains(letter))
             {
                 //our word contains the letter!
+                string cWord = GameResources.CurrentWord.ToLower();
+                int offset = 0;
+                while (cWord.Contains(letter))
+                {
+                    GameResources.SolvedLetters++;
+                    int x = cWord.IndexOf(letter);
+                    GameResources.CurrentWordState[x+offset] = letter.ToString();
+                    if (x == cWord.Length - 1) break;
+                    else
+                    {
+                        offset = x;
+                        cWord = cWord.Substring(x + 1);
+                    }
+                } 
             }
             else
             {
@@ -70,7 +86,17 @@ namespace EvilHangman.Rendering
                 }
             }
 
-            box.Clear();
+            RenderBodyParts.UpdateLetters();
+
+            if (GameResources.SolvedLetters == GameResources.WordLength)
+            {
+                //render winning scene!
+            }
+            else
+            {
+                box.Clear();
+                
+            }
         }
     }
 }
