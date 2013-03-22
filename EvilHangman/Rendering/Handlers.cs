@@ -50,44 +50,45 @@ namespace EvilHangman.Rendering
             if (box == null || box.Text.Trim() == "") return; //empty!
 
             char letter = box.Text.ToLower().ToCharArray()[0];
-
-            GameResources.GuessedLetters.Add(letter);
-
-            if (GameResources.CurrentWord.ToLower().Contains(letter))
+            if (!GameResources.GuessedLetters.Contains(letter))
             {
-                //our word contains the letter!
-                string cWord = GameResources.CurrentWord.ToLower();
-                int offset = 0;
-                while (cWord.Contains(letter))
+                GameResources.GuessedLetters.Add(letter);
+
+                if (GameResources.CurrentWord.ToLower().Contains(letter))
                 {
-                    GameResources.SolvedLetters++;
-                    int x = cWord.IndexOf(letter);
-                    GameResources.CurrentWordState[x+offset] = letter.ToString();
-                    if (x == cWord.Length - 1) break;
-                    else
+                    //our word contains the letter!
+                    string cWord = GameResources.CurrentWord.ToLower();
+                    int offset = 0;
+                    while (cWord.Contains(letter))
                     {
-                        offset = x;
-                        cWord = cWord.Substring(x + 1);
+                        GameResources.SolvedLetters++;
+                        int x = cWord.IndexOf(letter);
+                        GameResources.CurrentWordState[x + offset] = letter.ToString();
+                        if (x == cWord.Length - 1) break;
+                        else
+                        {
+                            offset = x;
+                            cWord = cWord.Substring(x + 1);
+                        }
                     }
-                } 
-            }
-            else
-            {
-                GameResources.GuessesLeft--;
-                if (GameResources.GuessesLeft == 0)
-                {
-                    //game over
-                    RenderBodyParts.RenderScene();
-                    RenderBodyParts.RenderGameOver();
                 }
                 else
                 {
-                    RenderBodyParts.RenderScene();
+                    GameResources.GuessesLeft--;
+                    if (GameResources.GuessesLeft == 0)
+                    {
+                        //game over
+                        RenderBodyParts.RenderScene();
+                        RenderBodyParts.RenderGameOver();
+                    }
+                    else
+                    {
+                        RenderBodyParts.RenderScene();
+                    }
                 }
+                RenderBodyParts.UpdateGuessedLetters();
+                RenderBodyParts.UpdateLetters();
             }
-
-            RenderBodyParts.UpdateLetters();
-
             if (GameResources.SolvedLetters == GameResources.WordLength)
             {
                 //render winning scene!

@@ -79,6 +79,33 @@ namespace EvilHangman.Rendering
                 Canvas.SetTop(btn, (GameResources.GameDimensions.Height * .25));
                 Canvas.SetLeft(btn, (GameResources.GameDimensions.Width * 0.25) +offset);
                 offset += 50;
+                LetterList.Add(btn);
+                GameResources.GameCanvas.Children.Add(btn);
+            }
+        }
+
+        public static List<UIElement> GuessedLetterList = new List<UIElement>();
+
+        public static void UpdateGuessedLetters()
+        {
+            foreach (UIElement uel in LetterList)
+            {
+                if (GameResources.GameCanvas.Children.Contains(uel))
+                    GameResources.GameCanvas.Children.Remove(uel);
+            }
+            int offset = 25;
+            foreach (var letter in GameResources.GuessedLetters)
+            {
+                Label btn = new Label();
+                btn.Content = letter;
+                btn.FontFamily = new FontFamily("Rosewood Std");
+                btn.FontSize = 55.0;
+                btn.Width = 100;
+                btn.Height = 100;
+                Canvas.SetBottom(btn, (GameResources.GameDimensions.Height * 0.020));
+                Canvas.SetLeft(btn, (GameResources.GameDimensions.Width * 0.025) + offset);
+                offset += 50;
+                GuessedLetterList.Add(btn);
                 GameResources.GameCanvas.Children.Add(btn);
             }
         }
