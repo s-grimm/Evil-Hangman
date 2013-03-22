@@ -22,7 +22,7 @@ namespace EvilHangman.Rendering
                 Random random = new Random();
                 int wordNumber = random.Next(0, word.Count() - 1);
                 GameResources.CurrentWord = word[wordNumber];
-                GameResources.GuessesLeft = 5;
+                GameResources.GuessesLeft = 6;
                 GameResources.WordLength = length;
                 GameResources.CurrentWordState = new string[length];
                 for (int i = 0; i < length; ++i)
@@ -61,6 +61,7 @@ namespace EvilHangman.Rendering
                 if (GameResources.GuessesLeft == 0)
                 {
                     //game over
+                    RenderBodyParts.RenderScene();
                     RenderBodyParts.RenderGameOver();
                 }
                 else
@@ -68,6 +69,8 @@ namespace EvilHangman.Rendering
                     RenderBodyParts.RenderScene();
                 }
             }
+
+            box.Clear();
         }
     }
 }

@@ -18,19 +18,15 @@ namespace EvilHangman.Rendering
             GameResources.GameCanvas.Children.Clear();
             int offset = 75;
 
-            Image img = new Image();
             BitmapImage bimg;
             try
             {
                 bimg = new BitmapImage(new Uri("Images\\Menu.png", UriKind.RelativeOrAbsolute));
-                img.Source = bimg;
-                img.Width = bimg.PixelWidth;
-                img.Height = bimg.PixelHeight;
                 GameResources.GameCanvas.Background = new ImageBrush(bimg);
             }
             catch (Exception)
             {
-                MessageBox.Show("Error Loading UI Component : MainMenuBackground.png", "UI Load Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error Loading UI Component : Menu", "UI Load Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             foreach (GameResources.Difficulty d in Enum.GetValues(typeof(GameResources.Difficulty)))
