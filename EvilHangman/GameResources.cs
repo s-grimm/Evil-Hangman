@@ -20,15 +20,20 @@ namespace EvilHangman
         public static int GuessesLeft { get; set; }
         public static string CurrentWord {get;set;}
         public static int WordLength { get; set; }
+        public static string[] CurrentWordState { get; set; }
 
-        public static SolidColorBrush _blackBrush = new SolidColorBrush(Colors.Black);
-        public static SolidColorBrush _redBrush = new SolidColorBrush(Colors.Red);
-        public static SolidColorBrush _greenBrush = new SolidColorBrush(Colors.Green);
-        public static SolidColorBrush _blueBrush = new SolidColorBrush(Colors.Blue);
+
+        public static List<char> GuessedLetters { get; set; }
+
+        public static SolidColorBrush BlackBrush = new SolidColorBrush(Colors.Black);
+        public static SolidColorBrush RedBrush = new SolidColorBrush(Colors.Red);
+        public static SolidColorBrush GreenBrush = new SolidColorBrush(Colors.Green);
+        public static SolidColorBrush BlueBrush = new SolidColorBrush(Colors.Blue);
 
         static GameResources()
         {
             GameDimensions = new Dimensions();
+            GuessedLetters = new List<char>();
         }
     }
 }

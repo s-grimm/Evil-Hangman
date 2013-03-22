@@ -29,8 +29,15 @@ namespace EvilHangman
         public MainWindow()
         {
             InitializeComponent();
+
+
             GameResources.GameDimensions.Width = (int)cvsGameWindow.Width;
             GameResources.GameDimensions.Height = (int)cvsGameWindow.Height;
+
+
+            Application.Current.MainWindow.Width = GameResources.GameDimensions.Width + 15;
+            Application.Current.MainWindow.Height = GameResources.GameDimensions.Height + 38;
+
             GameResources.GameCanvas = cvsGameWindow;
             Rendering.RenderMainMenu.RenderNewGameMenu();
         }

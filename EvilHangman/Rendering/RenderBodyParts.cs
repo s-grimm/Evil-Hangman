@@ -7,12 +7,7 @@ namespace EvilHangman.Rendering
 {
     public static class RenderBodyParts
     {
-        public static void RenderHead() { }
-        public static void RenderBody() { }
-        public static void RenderLeftArm() { }
-        public static void RenderRightArm() { }
-        public static void RenderLeftLeg() { }
-        public static void RenderRightLeg() { }
-
+        public static void RenderScene() { }
+        public static void RenderGameOver() { }
     }
 }
