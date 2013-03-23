@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,6 +22,17 @@ namespace EvilHangman.Rendering
 
     public static class Handlers
     {
+        #region Check If there is no  Alphabet and no non-Alphanumeric //character
+
+        public static bool CheckAlphabet(string text)
+        {
+            Regex pattern = new Regex(@"^[a-zA-Z]+$");
+
+            return pattern.IsMatch(text);
+        }
+
+        #endregion Check If there is no  Alphabet and no non-Alphanumeric //character
+
         public static void RetryGameClick(object sender, EventArgs e)
         {
             Rendering.RenderMainMenu.RenderNewGameMenu();
@@ -72,8 +84,11 @@ namespace EvilHangman.Rendering
                 }
             }
 
-            if (box == null || box.Text.Trim() == "") return; //empty!
-
+            if (box == null || box.Text.Trim() == "" || !CheckAlphabet(box.Text.Trim()))
+            {
+                box.Clear();
+                return; //empty!
+            }
             char letter = box.Text.ToLower().ToCharArray()[0];
             if (!GameResources.GuessedLetters.Contains(letter))
             {

@@ -40,7 +40,7 @@ namespace EvilHangman.Rendering
             GameResources.GameCanvas.Children.Add(txtGuess);
 
             Label btn = new Label();
-            btn.Content = "Sumbit";
+            btn.Content = "Submit";
             btn.Height = 60;
             btn.FontFamily = new FontFamily("Rosewood Std");
             btn.FontSize = 60.0;
